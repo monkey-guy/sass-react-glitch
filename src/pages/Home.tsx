@@ -44,6 +44,15 @@ export default class Home extends React.Component<{}, HomeState> {
       "Everybody knows",
       "So sgiam😝",
       "O'Gabriel, now dawns thy reckoning. And thy gore shall &GLISTEN!&",
+      "Before the temples of Man.",
+      "Creature, of steel. My graditude upon thee for my freedom.",
+      "But the crimes, thy kind have commited against humanity.",
+      "Are &NOT& forgotten. And thy punishment.",
+      "&IS DEATH&",
+      "Machine, I will cut you down, break you apart.",
+      "Splay the &GORE& OF YOUR PROFANE FORM &ACROSS THE STARS&!",
+      "I WILL &GRIND& YOU DOWN TIL THE VERY &SPARKS CRY FOR MERCY&!",
+      "MY HANDS SHALL &RELISH ENDING YOU&, HERE AND &NOW&!",
     ];
     const RandomHeader =
       WebsiteHeaders[Math.floor(Math.random() * WebsiteHeaders.length)];
@@ -65,13 +74,13 @@ export default class Home extends React.Component<{}, HomeState> {
         this.setState({
           headerText:
             this.state.headerText +
-            (NextChar == "&" && !Bolded
+            ((i == 0 && Char == "&" && Bolded) || (NextChar == "&" && !Bolded)
               ? '<span style="font-size: 25px;">' + Char
-              : NextChar == "&" && Bolded
+              : (i == 0 && Char == "&" && Bolded) || (NextChar == "&" && Bolded)
               ? Char + "</span>"
               : Char),
         });
-      }, (Math.floor(RandomHeader.length) / 2) * 2 * i);
+      }, 100 * (1 - Math.min(RandomHeader.length, 100) / 100) * i);
     }
   }
 }
