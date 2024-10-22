@@ -1,0 +1,86 @@
+// Imports
+@use "sass:map";
+@use "variables";
+
+@mixin social($name) {
+    $social-map: map.get(variables.$social-icons, $name);
+    width: clamp(20px, 8vw, 140px);
+    height: clamp(20px, 8vw, 140px);
+
+    transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 15px;
+    border-radius: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .icon {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        content: url(map.get($social-map, "icon"));
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    & .footer {
+        transition:
+            transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        color: transparent;
+        font-family: sans-serif;
+        font-weight: bold;
+        margin-top: 15px;
+        transform: translateY(-200%);
+        z-index: -1;
+        color: if(map.get($social-map, "color") == rgb(40, 40, 40), white, black);
+    }
+
+    & .footer::before {
+        content: "#{$name}";
+        padding: 5px;
+        margin: 0 -5px;
+        position: absolute;
+        white-space: nowrap;
+        overflow: hidden;
+        width: max-content;
+        height: max-content;
+        border-radius: 2vw;
+        background-color: map.get($social-map, "color");
+    }
+
+    &:hover {
+        border-radius: 3vw;
+        .footer {
+            color: transparent;
+            transform: translateY(-30%);
+        }
+        .footer::before {
+            color: if(map.get($social-map, "color") == rgb(40, 40, 40), white, black);
+            border-radius: 0.5vw;
+            animation: 
+                typing 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+    }
+}
+
+#socials {
+    display: flex;
+    gap: 10px;
+}
+
+@each $name in variables.$social-names {
+    .social-#{$name} {
+        background-color: map.get(map.get(variables.$social-icons, $name), "color");
+
+        @include social($name);
+    }
+}
+
+@keyframes typing {
+    from { width: 0; padding: 0px; };
+    80% { padding: 5px; };
+    to { width: 100%; };
+}

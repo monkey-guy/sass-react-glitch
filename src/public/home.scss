@@ -1,0 +1,41 @@
+.header {
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    font-size: clamp(19px, 1vw + 2px, 38px);
+}
+
+.header:not(.sub)::after {
+	position: absolute;
+	content: '\a';
+	margin-top: 3px;
+	height: clamp(16px, 1vw + 2px, 34px);
+	width: 3px;
+	background-color: black;
+	animation:
+		caret 1s steps(1) infinite;
+}
+
+.header.sub {
+    margin-left: 20px;
+    &::before {
+        content: '^\a';
+        position: absolute;
+        width: calc(15px + 1vw);
+        height: calc(15px + 1vw);
+        background: black;
+        clip-path: path('M 3 13.5 L 3 13.5 15 12 15 13.5 15 12 L 3 12 3 13.5 15 12 15 13.5 L 1.5 13.5 L 1.5 3 L 3 3 3 13.5');
+        margin: 0 0 0 -15px;
+    }
+
+    font-size: 20px;
+    color: rgb(70, 70, 70);
+}
+
+@keyframes caret {
+	from, to { 
+        opacity: 0;
+    };
+	50% {
+		opacity: 1;
+	}
+}

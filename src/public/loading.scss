@@ -1,0 +1,63 @@
+@use "sass:list";
+@use "sass:math";
+
+$circle-size: 15vw; // Changed to vw for responsiveness
+$num-dots: 12;
+$base-dot-size: 1vw; // Changed to vw for responsiveness
+$dot-size-increment: 0.2vw; // Changed to vw for responsiveness
+
+$background-dots-style: ();
+
+@for $i from 0 to $num-dots {
+  $angle: 360deg / $num-dots * $i;
+  $x: 50% + (math.sin($angle) * 40%);
+  $y: 50% + (math.cos($angle) * 40%);
+  $current-dot-size: $base-dot-size + ($i * $dot-size-increment);
+  $opacity: math.div($i, $num-dots - 1);
+  $background-dots-style: list.append(
+    $background-dots-style, 
+    no-repeat radial-gradient(circle, rgba(0, 0, 0, $opacity) 50%, transparent 50%) #{$x} #{$y} / #{$current-dot-size} #{$current-dot-size}, 
+    comma
+  );
+}
+
+body {
+    background-color: rgb(250, 250, 250);
+}
+
+#loading {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+#loading-icon {
+  width: $circle-size;
+  height: $circle-size;
+  background: #{$background-dots-style};
+  animation: rotate 5s linear infinite;
+  margin-left: 2vw;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(-360deg) }
+}
+
+@media (max-width: 768px) {
+  #loading {
+    flex-direction: column;
+  }
+
+  #loading-icon {
+    margin-left: 0;
+    margin-top: 2vw;
+  }
+}

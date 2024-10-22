@@ -1,0 +1,20 @@
+$social-names: (
+    "tiktok",
+    "roblox",
+    "discord"
+);
+$social-icons: (
+    "roblox": (
+        icon: "./icons/RobloxLogo.svg",
+        color: rgb(40, 40, 40)
+    ),
+    "tiktok": (
+        icon: "./icons/TiktokLogo.svg",
+        color: rgb(210, 210, 210)
+    ),
+    "discord": (
+        icon: "./icons/DiscordIcon.svg",
+        color: rgb(133, 147, 255)
+    )
+);
+$social-background: rgb(230, 230, 230);
